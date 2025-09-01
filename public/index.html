@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script>
+    window.requestIdleCallback = window.requestIdleCallback || function(cb) {
+      var start = Date.now();
+      return setTimeout(function() {
+        cb({
+          didTimeout: false,
+          timeRemaining: function() {
+            return Math.max(0, 50 - (Date.now() - start));
+          }
+        });
+      }, 1);
+    }
+    window.cancelIdleCallback = window.cancelIdleCallback || function(id) {
+      clearTimeout(id);
+    }
+  </script>
+  
+  <title>Dynamic Face Detection</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #121212;
+      color: white;
+    }
+    #controls {
+      margin-bottom: 20px;
+    }
+    #controls button, #rejoinButton {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 0 10px;
+      border-radius: 5px;
+      border: none;
+    }
+    #endCallButton {
+      background-color: #e63946;
+      color: white;
+    }
+    #video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 1400px;
+      margin-top: 20px;
+    }
+    .video-container {
+      position: relative;
+      border: 2px solid #007aff;
+      background-color: #000;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    video, canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      transform: scaleX(-1); /* Mirror effect */
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dynamic Multi User Proctored Meet</h1>
+  
+  <div id="controls">
+    <button id="muteButton">Mute Audio</button>
+    <button id="endCallButton">End Call</button>
+  </div>
+
+  <div id="video-grid">
+    <div class="video-container">
+      <video id="localVideo" autoplay muted playsinline></video>
+      <canvas id="localCanvas"></canvas>
+    </div>
+  </div>
+
+  <div id="callEnded" style="display: none; text-align: center; margin-top: 50px;">
+    <h2>Aap call se bahar aa gaye hain.</h2>
+    <button id="rejoinButton">Join Again</button>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.7.4/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Face Detection</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #121212;
+      color: white;
+    }
+    #video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 1400px;
+      margin-top: 20px;
+    }
+    .video-container {
+      position: relative;
+      border: 2px solid #007aff;
+      background-color: #000;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    video, canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      transform: scaleX(-1); /* Mirror effect */
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dynamic Multi-User Face Detection</h1>
+  <div id="video-grid">
+    <div class="video-container">
+      <video id="localVideo" autoplay muted playsinline></video>
+      <canvas id="localCanvas"></canvas>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.7.4/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html> -->

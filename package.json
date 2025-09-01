@@ -1,0 +1,14 @@
+{
+  "name": "dynamic-face-app",
+  "version": "1.0.0",
+  "description": "Simple face-api.js demo served by Express",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "face-api.js": "^0.22.2",
+    "socket.io": "^4.8.1"
+  }
+}
