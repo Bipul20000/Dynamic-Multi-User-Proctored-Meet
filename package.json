@@ -4,8 +4,9 @@
   "description": "Simple face-api.js demo served by Express",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
-  },
+  "start": "react-scripts start",
+  "build": "react-scripts build"
+},
   "dependencies": {
     "express": "^4.21.2",
     "face-api.js": "^0.22.2",
